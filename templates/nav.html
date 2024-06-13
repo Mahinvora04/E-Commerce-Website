@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Navbar</title>
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <!-- Custom CSS -->
+    <style>
+      /* Navbar Styling */
+      .navbar {
+        background-color: #131921;
+        height: 70px;
+      }
+
+      .navbar-brand {
+        font-weight: bold;
+        color: white;
+        padding: 5px;
+        border: 1.5px solid transparent;
+        margin-right: 260px !important;
+        margin-top: 15px;
+      }
+
+      .navbar-nav .nav-link {
+        border: 1.5px solid transparent;
+        color: white;
+        align: center;
+        margin-top: 4px;
+      }
+
+      .navbar-nav .nav-link:hover {
+        border: 1.5px solid white;
+        color: white;
+      }
+      .nav-search {
+        display: flex;
+        justify-content: space-evenly;
+        height: 40px;
+        background-color: #febd68;
+        width: 400px;
+        margin-left: 10px;
+        margin-right: 10px;
+        margin-top: 10px;
+      }
+      .search-input {
+        width: 100%;
+        font-size: 1rem;
+        border: none;
+      }
+      .search-icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 45px;
+        font-size: 1.2rem;
+        background-color: white;
+        color: #000000;
+      }
+      .nav-search:hover {
+        border: 2px orangered solid;
+      }
+
+      .btn-outline-primary {
+        border-color: #0d6efd;
+        color: #0d6efd;
+      }
+
+      .btn-outline-primary:hover {
+        background-color: #0d6efd;
+        color: #fff;
+      }
+      /* Dropdown Styling */
+      .dropdown-toggle::after {
+        border-top-color: #343a40;
+      }
+
+      .dropdown-menu {
+        background-color: #f8f9fa;
+        border-color: #ced4da;
+      }
+
+      .dropdown-menu a {
+        color: #343a40;
+      }
+
+      .dropdown-menu a:hover {
+        background-color: #0d6efd;
+        color: #fff;
+      }
+      .nav-item:hover .fa-heart {
+        color: red;
+      }
+      .nav-item:hover .fa-cart-plus {
+        color: orange;
+      }
+      .profile-btn {
+        color: white !important;
+      }
+      .dropdown-toggle::after {
+        display: none !important;
+      }
+    </style>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="{{url_for('home')}}"
+          ><img
+            src="/static/Image/3-removebg-preview (3).png"
+            class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}"
+            alt=""
+            style="height: 100px; width: 200px"
+        /></a>
+        <div>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarScroll"
+            aria-controls="navbarScroll"
+            aria-expanded="true"
+            aria-label="Toggle navigation"
+            id="navbarTogglerButton"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div
+            class="collapse navbar-collapse justify-content-space-between"
+            id="navbarScroll"
+          >
+            <ul
+              font-size:
+              20px;
+              class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll text-center"
+              style="font-size: 20px"
+            >
+              <li class="nav-item">
+                <a class="nav-link" href="/home">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/blog/product">Product</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/blog/category">Category</a>
+              </li>
+
+              <li class="nav-item">
+                <div class="nav-search">
+                  <div class="search-icon">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                  </div>
+                  <input placeholder="Search" class="search-input" />
+                </div>
+              </li>
+
+              <li class="nav-item cart-icon">
+                <a
+                  class="nav-link align-items-center"
+                  href="/blog/cart"
+                  style="color: orange !important; padding-top: 10px"
+                >
+                  <i class="fa-solid fa-cart-plus" style="font-size: 25px"></i
+                ></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/blog/wishlist">
+                  <script src="https://cdn.lordicon.com/lordicon.js"></script>
+                  <lord-icon
+                    src="https://cdn.lordicon.com/biobqpgs.json"
+                    trigger="hover"
+                    colors="primary:#e83a30,secondary:#ebe6ef,tertiary:#ffc738,quaternary:#f9c9c0,quinary:#f24c00"
+                    style="width: 30px; height: 30px"
+                  >
+                  </lord-icon
+                ></a>
+              </li>
+              <li class="nav-item cart-icon">
+                <a class="nav-link align-items-center" href="/blog/order">
+                  <i class="fa-solid fa-list" style="font-size: 25px"></i
+                ></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- User Authentication -->
+        <div class="d-flex">
+          {% if email %}
+          <div class="dropdown">
+            <button
+              class="btn profile-btn dropdown-toggle"
+              type="button"
+              id="dropdownMenuButton"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+              style="border: none"
+            >
+              <script src="https://cdn.lordicon.com/lordicon.js"></script>
+              <lord-icon
+                src="https://cdn.lordicon.com/bgebyztw.json"
+                trigger="hover"
+                stroke="bold"
+                state="hover-looking-around"
+                colors="primary:#ffffff,secondary:#e4e4e4"
+                style="
+                  width: 40px;
+                  height: 40px;
+                  border: 2px solid white;
+                  border-radius: 50%;
+                "
+              >
+              </lord-icon>
+            </button>
+
+            <ul
+              class="dropdown-menu dropdown-menu-end"
+              aria-labelledby="dropdownMenuButton"
+            >
+              <li>
+                <a class="dropdown-item" href="/auth/profile">{{email}}</a>
+              </li>
+              <li><a class="dropdown-item" href="/auth/logout">Logout</a></li>
+            </ul>
+          </div>
+          {% else %}
+          <a
+            href="/auth/log-in"
+            class="btn me-2"
+            style="color: white; font-size: 26px"
+            ><i class="fa-solid fa-right-to-bracket"></i
+          ></a>
+          {% endif %}
+        </div>
+      </div>
+    </nav>
+
+    <!-- Bootstrap JS -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+      integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+      integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Custom JavaScript -->
+    <script>
+      document
+        .getElementById("navbarTogglerButton")
+        .addEventListener("click", function () {
+          var navbarScroll = document.getElementById("navbarScroll");
+          if (navbarScroll.classList.contains("show")) {
+            navbarScroll.classList.remove("show");
+          } else {
+            navbarScroll.classList.add("show");
+          }
+        });
+    </script>
+    {% include "material/navbar_2.html" %}
+  </body>
+</html>

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $(".product-card").hover(
+          function () {
+            $(this).find(".description").fadeIn();
+          },
+          function () {
+            $(this).find(".description").fadeOut();
+          }
+        );
+      });
+    </script>
+
+    <style>
+      .product-card {
+        overflow: hidden;
+        border-radius: 10px;
+        border: 1px solid #dee2e6;
+        transition: transform 0.3s;
+        height: 450px !important;
+      }
+
+      .product-card img {
+        transition: transform 0.3s;
+        width: 100%;
+        height: 260px;
+        border-radius: 10px 10px 0 0;
+      }
+
+      .product-card:hover img {
+        transform: scale(1.1);
+      }
+
+      .product-details {
+        padding: 10px;
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 0 0 10px 10px;
+        box-sizing: border-box;
+      }
+
+      .product-details .name {
+        padding-top: 4px;
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+
+      .product-details .price {
+        font-size: 16px;
+        color: #555;
+      }
+      .product-details .name:hover {
+        color: brown;
+      }
+      .product-card:hover .price {
+        color: #003049;
+        font-weight: bolder;
+        font-size: 20px;
+      }
+      .button-group {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+      }
+
+      .boxes {
+        margin-top: 20px;
+      }
+      .product-details .description {
+        display: none;
+        text-align: justify;
+      }
+
+      .product-card:hover .description {
+        display: block;
+      }
+      /* Modal content */
+
+      .modal-content {
+        background-color: #fefefe;
+        margin: 10% auto; /* Adjust as needed */
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        max-width: 800px;
+        width: 100%;
+        display: flex;
+      }
+
+      /* Product Image */
+      #productImageContainer {
+        flex: 0 0 40%; /* Image takes up 40% of the width */
+        margin-right: 20px; /* Add some space between image and details */
+      }
+
+      #productImage {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+      }
+
+      /* Product Details */
+      #productDetails {
+        flex: 1; /* Details take up remaining space */
+      }
+
+      /* Close button */
+      .close {
+        cursor: pointer;
+        color: #aaa;
+        font-size: 24px;
+        align-self: flex-start; /* Align close button to the top */
+        margin-bottom: 20px; /* Add some space at the bottom */
+      }
+
+      /* Product details */
+      .name {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      .price {
+        font-size: 18px;
+        color: #555;
+        margin-bottom: 10px;
+      }
+
+      .description {
+        font-size: 16px;
+        text-align: justify;
+      }
+      .cart-btn {
+        color: orange !important;
+        font-size: 26px !important;
+        padding-bottom: 10px !important;
+      }
+    </style>
+
+    <script>
+      function openDialog(
+        productName,
+        productPrice,
+        productDescription,
+        productImage
+      ) {
+        // Update the dialogue box content with product details
+        document.getElementById("productImage").src = productImage;
+        document.getElementById("productName").textContent =
+          "Product Name: " + productName;
+        document.getElementById("productPrice").textContent =
+          "Price: ₹" + productPrice;
+        document.getElementById("productDescription").textContent =
+          "Description: " + productDescription;
+
+        // Show the dialogue box
+        document.getElementById("productDialog").style.display = "block";
+      }
+      function closeDialog() {
+        // Hide the dialogue box
+        document.getElementById("productDialog").style.display = "none";
+      }
+    </script>
+  </head>
+
+  <body>
+    {% include "nav.html" %} {% block content %}
+
+    <div class="boxes container">
+      <div class="row">
+        {% for product in data %}
+        <div class="col-md-3">
+          <div
+            class="card product-card mb-4"
+            onclick="openDialog('{{ product.name }}', '{{ product.price }}', '{{ product.description }}', '{{ url_for('static', filename='Image/product/' + product.image) }}')"
+          >
+            <img
+              src="{{ url_for('static', filename='Image/product/' + product.image) }}"
+              alt="Product Image"
+            />
+            <div class="product-details">
+              <div class="button-group">
+                <form id="wishlistForm" action="/blog/wishlist" method="POST">
+                  <input
+                    type="hidden"
+                    id="productId"
+                    name="productId"
+                    value="{{ product._id }}"
+                  />
+                  <button class="btn" title="Add to Wishlist">
+                    <script src="https://cdn.lordicon.com/lordicon.js"></script>
+                    <lord-icon
+                      src="https://cdn.lordicon.com/biobqpgs.json"
+                      trigger="hover"
+                      colors="primary:#e83a30,secondary:#ebe6ef,tertiary:#ffc738,quaternary:#f9c9c0,quinary:#f24c00"
+                      style="width: 30px; height: 30px"
+                    >
+                    </lord-icon>
+                  </button>
+                </form>
+                <form id="cartForm" action="/blog/cart" method="POST">
+                  <input
+                    type="hidden"
+                    id="productId"
+                    name="productId"
+                    value="{{ product._id }}"
+                  />
+                  <button class="btn cart-btn" title="Add to Cart">
+                    <i class="fas fa-cart-plus"></i>
+                  </button>
+                </form>
+              </div>
+              <div class="name">{{ product.name }}</div>
+              <div class="price">&#x20b9; {{ product.price }}</div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if
+    messages %} {% for category, message in messages %}
+    <div
+      class="alert alert-{{ category }} alert-dismissible fade show"
+      role="alert"
+    >
+      {{ message }}
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="alert"
+        aria-label="Close"
+      ></button>
+    </div>
+
+    {% endfor %} {% endif %} {% endwith %} {% endblock %}
+    <!-- Bootstrap JS -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Product Dialogue Box -->
+    <div id="productDialog" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeDialog()">&times;</span>
+        <div id="productImageContainer">
+          <div id="productName" class="name"></div>
+          <img
+            style="height: 150px"
+            id="productImage"
+            src=""
+            alt="Product Image"
+          />
+        </div>
+        <div id="productDetails">
+          <div id="productPrice" class="price"></div>
+          <div id="productDescription" class="description"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+{% extends "/material/footer.html"%}

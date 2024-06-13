@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background-color: #f0f0f0;
+        font-family: "Poppins", sans-serif;
+      }
+      .sign-up-form {
+        width: 50%;
+        height: 80vh;
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 10px;
+        padding: 30px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      }
+
+      h3 {
+        text-align: center;
+        margin-bottom: 10px;
+        color: #333;
+        font-size: 22px;
+      }
+
+      form {
+        margin-top: 20px;
+      }
+
+      label {
+        font-weight: 600;
+        color: #333;
+      }
+
+      input[type="text"],
+      input[type="email"],
+      input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        margin: 8px 0 20px 0;
+        border-bottom: 2px solid black;
+        border-radius: 5px;
+        box-sizing: border-box;
+      }
+
+      input[type="text"]:focus,
+      input[type="email"]:focus,
+      input[type="password"]:focus {
+        outline: none;
+        border-color: transparent;
+        border-bottom-color: black;
+      }
+
+      input[type="submit"] {
+        width: 100%;
+        font-size: 18px;
+        background-color: #004883;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        margin-top: 0px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      input[type="submit"]:hover {
+        background-color: #003399;
+      }
+      .social {
+        display: flex;
+        justify-content: space-between;
+      }
+      .social div {
+        width: 48%;
+        text-align: center;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      .alert {
+        padding: 20px;
+        color: red;
+        margin-bottom: 15px;
+      }
+
+      .social div:hover {
+        background-color: #f0f0f0;
+      }
+
+      .social i {
+        margin-right: 5px;
+      }
+
+      .login {
+        text-align: center;
+        margin: 0px;
+        color: #666;
+      }
+
+      .login-link {
+        color: linear-gradient(to right, #6699ff 0%, #000099 100%);
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      .login-link:hover {
+        color: orangered;
+        text-decoration: underline;
+      }
+
+      .alert {
+        margin-top: 10px;
+        padding: 10px;
+        border-radius: 5px;
+        text-align: center;
+      }
+
+      .alert-danger {
+        background-color: #f8d7da;
+        color: #721c24;
+      }
+      .continue {
+        font-size: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Display alert if provided -->
+
+    <form class="sign-up-form" action="/auth/sign-up" method="POST">
+      <h3 style="font-family: 'Pacifico', cursive">Sign Up</h3>
+      {% if alert %}
+      <div class="alert">
+        <strong>{{ alert }}</strong>
+      </div>
+      {% endif %}
+      <input
+        type="text"
+        id="name"
+        name="name"
+        placeholder="Full Name"
+        required
+      /><br />
+      <input
+        type="email"
+        id="email"
+        name="email"
+        placeholder="Email"
+        required
+      /><br />
+      <input
+        type="password"
+        id="password"
+        name="password"
+        placeholder="Password"
+        required
+      /><br />
+      <input
+        type="password"
+        id="confirm_password"
+        name="confirm_password"
+        placeholder="Confirm Password"
+        required
+      />
+      <div class="social">
+        <div class="go"><i class="fab fa-google"></i> Google</div>
+        <div class="fb"><i class="fab fa-facebook"></i> Facebook</div>
+      </div>
+      <p class="login">
+        Already have an account?
+        <a class="login-link" href="{{ url_for('login') }}">Log in</a>
+      </p>
+      <br />
+      <input type="submit" value="Sign Up" />
+      <p class="login continue">
+        <a class="login-link" href="{{ url_for('home') }}"
+          >Continue Without Sign Up!</a
+        >
+      </p>
+    </form>
+    <!-- JavaScript to show the alert -->
+    <script>
+      // Function to show the alert
+      function showAlert() {
+        var alertDiv = document.querySelector(".alert");
+        if (alertDiv) {
+          alertDiv.style.display = "block";
+          // Scroll to the top of the page to show the alert
+          window.scrollTo(0, 0);
+        }
+      }
+      // Call the showAlert function when the page loads
+      window.onload = showAlert;
+    </script>
+  </body>
+</html>

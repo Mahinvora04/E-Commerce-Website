@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your Orders</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+      /* Modal styles */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.4);
+      }
+
+      /* Modal content */
+      .modal-content {
+        background-color: #fefefe;
+        margin: 10% auto; /* Adjust as needed */
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        max-width: 600px; /* Adjust as needed */
+        width: 90%;
+      }
+
+      .order-hist-heading {
+        border-bottom: 1px solid #ccc;
+        padding: 20px;
+      }
+      /* Close button */
+      .close {
+        color: #aaa;
+        float: right;
+        font-size: 24px;
+      }
+
+      .close:hover,
+      .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      /* Table styles */
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+        margin-left: 50px;
+        max-width: 90vw;
+      }
+
+      th,
+      td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+
+      th {
+        background-color: #f2f2f2;
+      }
+
+      tr:hover {
+        background-color: #f5f5f5;
+      }
+
+      /* Button styles */
+      button {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #f2f2f2;
+      }
+    </style>
+  </head>
+  <body>
+    {% include "nav.html" %}
+    <h2 class="order-hist-heading" style="margin: 30px">Order History</h2>
+    {% if checkout_data %}
+    <table>
+      <thead>
+        <tr>
+          <th>Full Name</th>
+          <th>Amount</th>
+          <th>Payment Method</th>
+          <th>View</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for checkout_item in checkout_data %}
+        <tr>
+          <td>{{ checkout_item['full_name'] }}</td>
+          <td>{{ checkout_item['amount'] }}</td>
+          <td>{{ checkout_item['payment_method'] }}</td>
+          <td>
+            <form id="orderhistory">
+              <input
+                type="hidden"
+                id="checkoutId"
+                name="checkoutId"
+                value="{{ checkout_item._id }}"
+              />
+              <button
+                type="button"
+                onclick="openModal('{{ checkout_item['_id'] }}')"
+                class="btn"
+                title="View"
+              >
+                <script src="https://cdn.lordicon.com/lordicon.js"></script>
+                <lord-icon
+                  src="https://cdn.lordicon.com/vfczflna.json"
+                  trigger="hover"
+                  stroke="bold"
+                  style="width: 40px; height: 40px; padding-right: 10px"
+                >
+                </lord-icon>
+              </button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% endif %}
+
+    <div id="myModal" class="modal">
+      <!-- Modal content -->
+      <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <div id="modal-content"></div>
+        <button onclick="printModalContent()">Print</button>
+      </div>
+    </div>
+
+    <script>
+      var modal = document.getElementById("myModal");
+
+      function openModal(checkoutId) {
+        var url = "/get_checkout_modal_content?checkout_id=" + checkoutId;
+        fetch(url)
+          .then((response) => response.json())
+          .then((data) => {
+            var modalContent = document.getElementById("modal-content");
+            modalContent.innerHTML = ""; // Clear previous content
+            data.forEach(function (product) {
+              var productInfo = document.createElement("p");
+              productInfo.innerHTML =
+                "<strong>Name:</strong> " +
+                product.name +
+                "<br>" +
+                "<strong>Price:</strong> " +
+                product.price +
+                "<br>" +
+                "<img src='/static/Image/Product/" +
+                product.image +
+                "' alt='Product Image' style='max-width: 100px; max-height: 100px;'>";
+
+              modalContent.appendChild(productInfo);
+            });
+            modal.style.display = "block";
+          })
+          .catch((error) => console.error("Error:", error));
+      }
+
+      function closeModal() {
+        modal.style.display = "none";
+      }
+
+      // Function to print the modal content
+      function printModalContent() {
+        var printWindow = window.open("", "_blank");
+        var modalContent = document.getElementById("modal-content").innerHTML;
+        printWindow.document.write(
+          "<html><head><title>Print</title></head><body>" +
+            modalContent +
+            "</body></html>"
+        );
+        printWindow.document.close();
+        printWindow.print();
+      }
+    </script>
+  </body>
+</html>
+{% extends "/material/footer.html"%}

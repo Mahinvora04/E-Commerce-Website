@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkout</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-color: #f8f9fa;
+      }
+
+      .container {
+        padding: 20px;
+      }
+
+      h1 {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      label {
+        font-weight: bold;
+      }
+
+      button[type="submit"] {
+        width: 100%;
+      }
+
+      @media (min-width: 576px) {
+        .container {
+          max-width: 100%;
+        }
+      }
+
+      .proceed-btn {
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      .btn-place-order {
+        background-color: orange !important;
+        font-size: 16px !important;
+      }
+
+      .btn-place-order:hover {
+        background-color: #ff9800 !important;
+      }
+
+      /* Hide pin input by default */
+      .pin-input {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Checkout</h1>
+      <form action="/checkout" method="POST" id="checkoutForm">
+        <div class="mb-3">
+          <label for="name" class="form-label">Full Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            name="name"
+            value="{{ default_name }}"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="address" class="form-label">Address</label>
+          <textarea
+            class="form-control"
+            id="address"
+            name="address"
+            required
+          ></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="phone" class="form-label">Phone Number</label>
+          <input
+            type="tel"
+            class="form-control"
+            id="phone"
+            name="phone"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email Address</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            name="email"
+            value="{{ default_email }}"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="amt" class="form-label">Total amount</label>
+          <input
+            class="form-control"
+            id="amt"
+            name="amt"
+            value="{{ default_amt }}"
+            required
+            readonly
+          />
+        </div>
+        <div class="mb-3">
+          <label for="payment-method" class="form-label">Payment Method</label>
+          <select
+            class="form-select"
+            id="payment-method"
+            name="payment-method"
+            required
+          >
+            <option value="cash-on-delivery">Cash On Delivery</option>
+            <option value="credit-card">Credit Card</option>
+            <option value="paypal">PayPal</option>
+          </select>
+        </div>
+        <!-- Pin input for credit card -->
+        <div class="mb-3 pin-input" id="pinInputCreditCard">
+          <label for="pin-credit-card" class="form-label"
+            >Credit Card PIN</label
+          >
+          <input
+            type="password"
+            class="form-control"
+            id="pin-credit-card"
+            name="pin-credit-card"
+          />
+        </div>
+        <!-- Pin input for PayPal -->
+        <div class="mb-3 pin-input" id="pinInputPayPal">
+          <label for="pin-paypal" class="form-label">PayPal PIN</label>
+          <input
+            type="password"
+            class="form-control"
+            id="pin-paypal"
+            name="pin-paypal"
+          />
+        </div>
+        <button type="submit" class="btn btn-place-order">Place Order</button>
+      </form>
+    </div>
+
+    <script>
+      // Show pin input based on selected payment method
+      document
+        .getElementById("payment-method")
+        .addEventListener("change", function () {
+          var selectedPaymentMethod = this.value;
+          var pinInputs = document.querySelectorAll(".pin-input");
+          pinInputs.forEach(function (pinInput) {
+            pinInput.style.display = "none";
+          });
+
+          if (selectedPaymentMethod === "credit-card") {
+            document.getElementById("pinInputCreditCard").style.display =
+              "block";
+          } else if (selectedPaymentMethod === "paypal") {
+            document.getElementById("pinInputPayPal").style.display = "block";
+          }
+        });
+    </script>
+  </body>
+</html>
