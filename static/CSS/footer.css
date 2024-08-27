@@ -1,0 +1,90 @@
+foot panel one footer {
+  margin-top: 15px;
+}
+.foot-panel1 {
+  background-color: #37475a;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.85rem;
+}
+.foot-panel1-a {
+  text-decoration: none;
+  color: white;
+}
+.foot-panel1:hover {
+  background-color: #424d5a;
+}
+.foot-panel1 .foot-panel1-a {
+  color: white;
+}
+
+.foot-panel2 {
+  background-color: #222f3d;
+  color: #dddddd;
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.foot-column {
+  width: 25%;
+  text-align: center;
+}
+
+.foot-column a {
+  line-height: 15px;
+  font-size: 13px;
+  text-decoration: none;
+  color: #dddddd;
+  margin-bottom: 5px 0; /* Add margin bottom to space out the links */
+}
+.footer-head {
+  font-size: 16px;
+  font-weight: 700;
+}
+@media screen and (max-width: 1024px) {
+  .foot-column {
+    width: 50%;
+  }
+}
+@media screen and (max-width: 768px) {
+  .foot-column:nth-child(3),
+  .foot-column:nth-child(4) {
+    display: none;
+  }
+}
+
+/*foot panel3*/
+
+.foot-panel3 {
+  color: white;
+  background-color: #222f3d;
+  border-top: 0.5px white solid;
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.logo_footer {
+  background-image: url("/static/Image/3-removebg-preview (3).png");
+  background-size: cover;
+  height: 120px;
+  width: 150px;
+  margin-bottom: 10px;
+}
+/*foot panel 4*/
+.foot-panel4 {
+  background-color: #0f1111;
+  color: white;
+  height: 80px;
+  font-size: 0.7rem;
+  text-align: center;
+}
+.pages {
+  padding-top: 25px;
+}
+.copyright {
+  padding-top: 5px;
+}

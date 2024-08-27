@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <title>Login</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f2f2f2;
+      }
+      .login-container {
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        width: 300px;
+      }
+      .login-container h2 {
+        margin-bottom: 20px;
+        text-align: center;
+        color: #333333;
+      }
+      .login-form input[type="uname"],
+      .login-form input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid transparent;
+        border-bottom: 1px solid black;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+      .login-form input[type="uname"]:focus,
+      .login-form input[type="password"]:focus {
+        outline: none; /* Remove the default focus outline */
+        border-color: transparent; /* Set border color to transparent on focus */
+        border-bottom-color: black;
+      }
+      .login-form input[type="submit"] {
+        width: 100%;
+        background-color: blue;
+        color: #ffffff;
+        padding: 10px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+      .login-form input[type="submit"]:hover {
+        background-color: #0056b3;
+      }
+      p {
+        margin-left: 80px;
+      }
+      p a {
+        text-decoration: none;
+      }
+      p a:hover {
+        color: orangered;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="login-container">
+      <h2><i class="fas fa-user-shield"></i></h2>
+      <h2>Login</h2>
+      <form class="login-form" method="POST">
+        <input type="uname" name="uname" placeholder="Username" required />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          required
+        />
+        <input type="submit" value="Login" />
+        <p><a href="{{url_for('default')}}">Back to Main Page</a></p>
+      </form>
+    </div>
+  </body>
+</html>

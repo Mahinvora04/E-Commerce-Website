@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Design by foolishdeveloper.com -->
+    <title>log in</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background-color: #f0f0f0;
+        font-family: "Poppins", sans-serif;
+      }
+
+      .login-form {
+        width: 50%;
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 10px;
+        padding: 30px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      }
+
+      h3 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #333;
+        font-size: 22px;
+      }
+
+      label {
+        font-weight: 600;
+        color: #333;
+      }
+
+      input[type="email"],
+      input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        margin: 8px 0 20px 0;
+        border-bottom: 2px solid black;
+        border-radius: 5px;
+        box-sizing: border-box;
+      }
+
+      button {
+        width: 100%;
+        font-size: 18px;
+        background-color: #004883;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      button:hover {
+        background-color: #003399;
+      }
+
+      .social {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .social div {
+        width: 48%;
+        text-align: center;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      .social div:hover {
+        background-color: #f0f0f0;
+      }
+
+      .social i {
+        margin-right: 5px;
+      }
+
+      .signup {
+        text-align: center;
+        margin-top: 20px;
+        color: #666;
+      }
+
+      .signup-link {
+        color: linear-gradient(to right, #6699ff 0%, #000099 100%);
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      .signup-link:hover {
+        color: orangered;
+        text-decoration: underline;
+      }
+
+      .alert {
+        margin-top: 10px;
+        padding: 10px;
+        border-radius: 5px;
+        text-align: center;
+      }
+
+      .alert-danger {
+        background-color: #f8d7da;
+        color: #721c24;
+      }
+      .continue {
+        font-size: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <form class="login-form" method="POST">
+      <h3 style="font-family: 'Pacifico', cursive">Welcome Back!</h3>
+
+      <!-- Alert Message -->
+      {% if alert %}
+      <div class="alert alert-danger">{{ alert }}</div>
+      {% endif %}
+
+      <label for="email">Email</label>
+      <input type="email" name="email" placeholder="Email" required />
+
+      <label for="password">Password</label>
+      <input type="password" name="password" required />
+      <div class="social">
+        <div class="go"><i class="fab fa-google"></i> Google</div>
+        <div class="fb"><i class="fab fa-facebook"></i> Facebook</div>
+      </div>
+      <p class="signup">
+        Don't have an account?
+        <a class="signup-link" href="{{ url_for('signup') }}">Sign Up</a>
+      </p>
+      <button>Log In</button>
+
+      <p class="signup continue">
+        <a class="signup-link" href="{{ url_for('home') }}"
+          >Continue Without Log In!</a
+        >
+      </p>
+    </form>
+  </body>
+</html>

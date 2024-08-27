@@ -1,0 +1,1 @@
+function getYear(){var e=(new Date).getFullYear();document.querySelector("#displayYear").innerHTML=e}function myMap(){var e={center:new google.maps.LatLng(40.712775,-74.005973),zoom:18};new google.maps.Map(document.getElementById("googleMap"),e)}getYear();

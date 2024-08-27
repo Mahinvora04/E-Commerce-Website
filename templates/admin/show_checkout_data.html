@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkout Data</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+        margin: 0;
+        padding: 0;
+      }
+
+      h1 {
+        text-align: center;
+        margin-top: 20px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-top: 20px;
+      }
+      th,
+      td {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 10px;
+      }
+      th {
+        background-color: #365486;
+        color: #fff;
+      }
+      tbody tr:hover {
+        background-color: #f2f2f2;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Checkout Data</h1>
+    {% if checkout_data %}
+    <table>
+      <thead>
+        <tr>
+          <th>Full Name</th>
+          <th>Address</th>
+          <th>Phone Number</th>
+          <th>Email</th>
+          <th>Amount</th>
+          <th>Payment Method</th>
+          <th>View</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for data in checkout_data %}
+        <tr>
+          <td>{{ data.full_name }}</td>
+          <td>{{ data.address }}</td>
+          <td>{{ data.phone_number }}</td>
+          <td>{{ data.email }}</td>
+          <td>{{ data.amount }}</td>
+          <td>{{ data.payment_method }}</td>
+          <td>
+            <form id="orderhistory">
+              <input
+                type="hidden"
+                id="checkoutId"
+                name="checkoutId"
+                value="{{ data.checkout_id }}"
+              />
+              <button
+                type="button"
+                onclick="openModal('{{ data['checkout_id'] }}')"
+                class="btn"
+                title="View"
+              >
+                <script src="https://cdn.lordicon.com/lordicon.js"></script>
+                <lord-icon
+                  src="https://cdn.lordicon.com/vfczflna.json"
+                  trigger="hover"
+                  stroke="bold"
+                  style="width: 40px; height: 40px; padding-right: 10px"
+                >
+                </lord-icon>
+              </button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% endif %}
+  </body>
+
+  <script>
+    var modal = document.getElementById("myModal");
+
+    function openModal(checkoutId) {
+      var url = "/get_checkout_modal_content?checkout_id=" + checkoutId;
+      fetch(url)
+        .then((response) => response.json())
+        .then((data) => {
+          var modalContent = document.getElementById("modal-content");
+          modalContent.innerHTML = ""; // Clear previous content
+          data.forEach(function (product) {
+            var productInfo = document.createElement("p");
+            productInfo.innerHTML =
+              "<strong>Name:</strong> " +
+              product.name +
+              "<br>" +
+              "<strong>Price:</strong> " +
+              product.price +
+              "<br>" +
+              "<img src='/static/Image/Product/" +
+              product.image +
+              "' alt='Product Image' style='max-width: 100px; max-height: 100px;'>";
+
+            modalContent.appendChild(productInfo);
+          });
+          modal.style.display = "block";
+        })
+        .catch((error) => console.error("Error:", error));
+    }
+
+    function closeModal() {
+      modal.style.display = "none";
+    }
+
+    // Function to print the modal content
+    function printModalContent() {
+      var printWindow = window.open("", "_blank");
+      var modalContent = document.getElementById("modal-content").innerHTML;
+      printWindow.document.write(
+        "<html><head><title>Print</title></head><body>" +
+          modalContent +
+          "</body></html>"
+      );
+      printWindow.document.close();
+      printWindow.print();
+    }
+  </script>
+</html>
